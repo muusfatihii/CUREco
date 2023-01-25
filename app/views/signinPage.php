@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
     crossorigin="anonymous"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script src="/cureco/public/js/login.js"></script>
-    <title>Sign In</title>
+
+    <title>CURECO--Sign In</title>
 </head>
 <body>
-    <main class="flex items-center justify-center h-screen bg-orange-300">
+    <main class="flex items-center justify-center h-screen bg-blue-300">
 
-        <form method="POST" action="/cureco/public/auth/signin" class="bg-white w-96 p-6 rounded shadow-sm">
-            
-                <div class="flex items-center justify-center mb-4">
-                    <img src="templates/img/cruise.jpg" alt="logo" class="h-54 rounded" />
-                </div>
+        <form method="POST" action="/projet/public/auth/signin" class="bg-white w-96 p-6 rounded shadow-sm">
                 
                 <?php if(!empty($data["em"])):?>
                     <div class="bg-red-500 px-3 py-2 rounded text-gray-100 mb-3">
@@ -27,7 +27,7 @@
                 <?php endif?>
 
                 <label id="email_err"
-                class="text-orange-400 hidden" for="">Veuillez remplir ce champ !!</label>
+                class="text-red-400 hidden" for="">Inserez un email valide !!</label>
                 
                 <input 
                 id="email"
@@ -39,7 +39,7 @@
 
 
                 <label id="pass_err"
-                class="text-orange-400 hidden" for="">Veuillez remplir ce champ !!</label>
+                class="text-red-400 hidden" for="">Inserez le password !!</label>
 
 
                 <input 
@@ -52,16 +52,15 @@
 
 
                 <button 
-                type="submit" 
                 id="login"
-                class="bg-orange-500 w-full text-gray-100 py-2 rounded mb-4 hover:bg-blue-700 transition-colors">
+                class="bg-blue-500 w-full text-gray-100 py-2 rounded mb-4 hover:bg-blue-700 transition-colors">
                 Log In</button>
 
                 <button 
                 type="button"
-                onClick="location.href='/cureco/public/page/signup'" 
-                class="bg-orange-500 w-full text-gray-100 py-2 rounded hover:bg-blue-700 transition-colors">
-                Sign Up</button>
+                onClick="location.href='/projet/public'" 
+                class="bg-blue-500 w-full text-gray-100 py-2 rounded hover:bg-blue-700 transition-colors">
+                Back</button>
 
             
         </form>
@@ -77,7 +76,6 @@
 .block {
   display: block;
 }
-
 
 </style>
     

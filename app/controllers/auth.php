@@ -24,33 +24,25 @@ class Auth extends Controller{
 
             if(!$auth){
 
-            // $data["em"]="Ce compte n’existe pas";
+                $data["em"]="Ce compte n’existe pas";
 
-            // $this->view('signinPage',$data);
+                $this->view('signinPage',$data);
 
-            echo false;
-            exit();
-
-            
             }else{
 
-            
+
                 $_SESSION['admin']=1;
 
                 $IdAdmin = $adminRepo->getIdAdmin($_SESSION['email']);
                 $_SESSION['IdAdmin']=$IdAdmin;
 
-
-                 echo true;
-                 exit();
-
-                // header ('Location: /cureco/public/');
+                header ('Location: /projet/public');
             }
 
             
         }else{
 
-            header ('Location: /cureco/public/page/signin');
+            header ('Location: /projet/public/page/signin');
 
         }
 
@@ -62,7 +54,7 @@ class Auth extends Controller{
 
         session_destroy();
 
-        header ('Location: /cureco/public/');
+        header ('Location: /projet/public/');
 
     }
 
@@ -101,7 +93,7 @@ class Auth extends Controller{
             $IdAdmin = $adminRepo->getIdAdmin($_SESSION['email']);
             $_SESSION['IdAdmin']=$IdAdmin;
 
-            header ('Location: /cureco/public/');
+            header ('Location: /projet/public/');
         }
 
     }else{

@@ -19,36 +19,58 @@ class Page extends Controller{
     } 
 
     public function signup($params=[]){
+
+        if(isset($_SESSION['admin']) && $_SESSION['admin']==1){
+
+            $this->view('signupPage',[]);
+
+        }else{
+
+            $this->error();
+
+        }
+    
+    } 
+
+
+    public function error($params=[]){
         
 
-        $this->view('signupPage',[]);
+        $this->view('error',[]);
 
-    } 
+    }  
 
     public function dashboard($params=[]){
 
 
-        $page =1;
-        $limit=2;
-        $startFrom=($page-1)*$limit;
 
-        $dbconnection = new DatabaseConnection();
-        $productRepo = $this->model('ProductRepo');
-        $productRepo->dbconnection = $dbconnection;
+        if(isset($_SESSION['admin']) && $_SESSION['admin']==1){
 
-        
-        $results = $productRepo->getProducts($startFrom,$limit);
-        $products =  $this->getProductsObj($results);
+                $page =1;
+                $limit=2;
+                $startFrom=($page-1)*$limit;
 
-        $data["products"] =  $products;
-        
+                $dbconnection = new DatabaseConnection();
+                $productRepo = $this->model('ProductRepo');
+                $productRepo->dbconnection = $dbconnection;
 
-        $this->view('dashboard',$data);
+                $results = $productRepo->getProducts($startFrom,$limit);
+                $products =  $this->getProductsObj($results);
+
+                $data["products"] =  $products;
+                
+                $this->view('dashboard',$data);
+
+        }else{
+
+                $this->error();
+            
+        }
 
     } 
 
 
-    public function getProductsObj($results):array
+    private function getProductsObj($results):array
     {
         
 

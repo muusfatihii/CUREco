@@ -1,4 +1,4 @@
-<footer class="p-4 bg-blue-800 shadow mt-14 md:px-6 md:py-8">
+<footer class="p-4 bg-blue-800 shadow md:px-6 md:py-8">
         <div class="sm:flex sm:items-center sm:justify-between">
             <a href="" class="flex items-center mb-4 sm:mb-0">
                 <img src="" class="mr-3 h-8" alt="" />

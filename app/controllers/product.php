@@ -9,8 +9,6 @@ spl_autoload_register(function($class){
 
 class Product extends Controller{
 
-    //private $limit=10;
-
 
     public function show($params=[]){
 
@@ -47,13 +45,10 @@ class Product extends Controller{
 
             if($_POST['update']=="yes"){
 
-
                 $startFrom = 0;
 
             }
         }
-        
-
         
         $results = $this->getFilteredProducts($priceOrder,$addDateOrder,$startFrom,$limit);
         $products = $this->getProductsObj($results);
@@ -73,7 +68,6 @@ class Product extends Controller{
 
         }
         
-
     }
 
 
@@ -115,8 +109,6 @@ class Product extends Controller{
                 }
     
             }
-
-           
 
         }else{
 
@@ -163,9 +155,8 @@ class Product extends Controller{
 
         }
         
-
-        
      return $results;
+
     }
 
     public function getProductsObj($results):array
@@ -236,7 +227,6 @@ class Product extends Controller{
         $startFrom = ($page-1)*$limit;
 
 
-
         $keyword = $_POST['keyword'];
 
         $dbconnection = new DatabaseConnection();
@@ -260,45 +250,6 @@ class Product extends Controller{
         $priceOrder = $_POST['priceOrder'];
         $addDateOrder = $_POST['addDateOrder'];
 
-        // $limit = 2;
-        // $priceOrder = "none";
-        // $addDateOrder = "none";
-
-        // if(isset($_POST['data'])){
-
-        //     $info = $_POST['data'];
-
-        //     json_encode($info);
-        //     exit();
-
-
-        // }else{
-
-        //     echo "1";
-        //     exit();
-        // }
-   
-       
-
-    // var_dump($_POST);
-    // var_dump($_FILES);
-
-    //    if(!empty($_POST)){
-
-    //     echo $_POST['productName1'];
-
-    //     exit();
-
-    //    }else{
-
-    //     echo 1;
-    //    }
-
-        
-
-
-
-
         $i=1;
 
         $products = [];
@@ -309,7 +260,7 @@ class Product extends Controller{
             isset($_POST['qtyProduct'.$i]) && $_POST['qtyProduct'.$i]!='' &&
             isset($_POST['priceProduct'.$i]) && $_POST['priceProduct'.$i]!=''){
 
-                if(isset($_FILES['picProduct'.$i]) && $_FILES['picProduct'.$i]!=''){
+                if(isset($_FILES['picProduct'.$i]) && $_FILES['picProduct'.$i]!='' && $_FILES['picProduct'.$i]['size']>0){
 
 
                     //ici le fichier téléchargé sera analysé pour définir son éligibilité
@@ -318,8 +269,8 @@ class Product extends Controller{
                     $product = new Product();
 
                     $product->name = htmlspecialchars($_POST['productName'.$i]);
-                    $product->quantity = $_POST['qtyProduct'.$i]; 
-                    $product->price = $_POST['priceProduct'.$i];
+                    $product->quantity = htmlspecialchars($_POST['qtyProduct'.$i]); 
+                    $product->price = htmlspecialchars($_POST['priceProduct'.$i]);
                     $product->pic = $picProduct;
 
 
@@ -328,8 +279,8 @@ class Product extends Controller{
                     $product = new Product();
 
                     $product->name = htmlspecialchars($_POST['productName'.$i]);
-                    $product->quantity = $_POST['qtyProduct'.$i]; 
-                    $product->price = $_POST['priceProduct'.$i];
+                    $product->quantity = htmlspecialchars($_POST['qtyProduct'.$i]); 
+                    $product->price = htmlspecialchars($_POST['priceProduct'.$i]);
                     $product->pic = "default.png";
 
                 }
@@ -431,13 +382,8 @@ class Product extends Controller{
     }
 
 
-
-
-
-
-
-
     public function modify($params=[]){
+
             
             $idProduct = $_POST['idProduct'];
 
@@ -445,7 +391,7 @@ class Product extends Controller{
             isset($_POST['qtyProduct']) && $_POST['qtyProduct']!='' &&
             isset($_POST['priceProduct']) && $_POST['priceProduct']!=''){
 
-                if(isset($_FILES['picProduct']) && $_FILES['picProduct']!=''){
+                if(isset($_FILES['picProduct']) && $_FILES['picProduct']!='' && $_FILES['picProduct']['size']>0){
 
 
                     //ici le fichier téléchargé sera analysé pour définir son éligibilité
@@ -455,9 +401,16 @@ class Product extends Controller{
 
                     $product->id = $idProduct;
                     $product->name = htmlspecialchars($_POST['productName']);
-                    $product->quantity = $_POST['qtyProduct']; 
-                    $product->price = $_POST['priceProduct'];
+                    $product->quantity = htmlspecialchars($_POST['qtyProduct']); 
+                    $product->price = htmlspecialchars($_POST['priceProduct']);
                     $product->pic = $picProduct;
+
+
+                    $dbconnection = new DatabaseConnection();
+                    $productRepo = $this->model('ProductRepo');
+                    $productRepo->dbconnection = $dbconnection;
+
+                    $success = $productRepo->modifyProduct($product);
 
 
                 }else{
@@ -466,28 +419,31 @@ class Product extends Controller{
 
                     $product->id = $idProduct;
                     $product->name = htmlspecialchars($_POST['productName']);
-                    $product->quantity = $_POST['qtyProduct']; 
-                    $product->price = $_POST['priceProduct'];
-                    $product->pic = "default.png";
+                    $product->quantity = htmlspecialchars($_POST['qtyProduct']); 
+                    $product->price = htmlspecialchars($_POST['priceProduct']);
+
+                    $dbconnection = new DatabaseConnection();
+                    $productRepo = $this->model('ProductRepo');
+                    $productRepo->dbconnection = $dbconnection;
+
+                    $success = $productRepo->modifyProductNoPic($product);
+                    
 
                 }
 
 
-                $dbconnection = new DatabaseConnection();
-                $productRepo = $this->model('ProductRepo');
-                $productRepo->dbconnection = $dbconnection;
+            }else{
 
-                $success = $productRepo->modifyProduct($product);
-
-
+                throw new Exception("Champ obligatoir non inscrit !!!");
+                
             }
 
-        if($success){
+            if($success){
 
-            echo 1;
-            exit();
+                echo 1;
+                exit();
 
-        }
+            }
 
     }
 

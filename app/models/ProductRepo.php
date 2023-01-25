@@ -269,6 +269,29 @@ class ProductRepo
    }
 
 
+
+   public function modifyProductNoPic($product){
+
+    $statement = $this->dbconnection->getConnection()->prepare(
+        "UPDATE `produit` 
+        SET `name`=?,`price`=?,`quantity`=?
+        WHERE id=?"
+    );
+
+    $affectedLines  = $statement->execute([$product->name,$product->price,$product->quantity,
+    $product->id]);
+
+    if($affectedLines==0){
+        
+        throw new Exception("une erreur est survenue lors de l'ajout d'un produit!!");
+
+    }
+
+    return($affectedLines==1);
+
+}
+
+
    public function getStatistics(){
 
     $statement = $this->dbconnection->getConnection()->prepare(

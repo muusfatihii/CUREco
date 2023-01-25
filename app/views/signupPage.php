@@ -13,13 +13,9 @@
     <title>Sign Up</title>
 </head>
 <body>
-    <main class="flex items-center justify-center h-screen bg-orange-300">
+    <main class="flex items-center justify-center h-screen bg-blue-300">
 
         <form method="POST" action="/cureco/public/auth/signup" class="bg-white w-96 p-6 rounded shadow-sm">
-            
-                <div class="flex items-center justify-center mb-4">
-                    <img src="templates/img/cruise.jpg" alt="logo" class="h-32" />
-                </div>
                 
                 <?php if(!empty($data["em"])):?>
                     <div class="bg-red-500 px-3 py-2 rounded text-gray-100 mb-3">
@@ -27,7 +23,7 @@
                     </div>
                 <?php endif?>
 
-                <label class="text-orange-400" for=""></label>
+                <label class="text-red-400" for=""></label>
                 <input 
                 id="firstname"
                 placeholder="First Name"
@@ -37,7 +33,7 @@
                 />
 
 
-                <label class="text-orange-400" for=""></label>
+                <label class="text-red-400" for=""></label>
                 <input 
                 id="lastname"
                 placeholder="Last Name"
@@ -46,7 +42,7 @@
                 type="text" 
                 />
                 
-                <label class="text-orange-400" for=""></label>
+                <label class="text-red-400" for=""></label>
                 <input 
                 id="email"
                 placeholder="E-mail"
@@ -54,7 +50,7 @@
                 name="email" 
                 type="email" 
                 />
-                <label class="text-orange-400" for=""></label>
+                <label class="text-red-400" for=""></label>
                 <input
                 id="password"
                 placeholder="Password" 
@@ -65,14 +61,14 @@
 
                 <button 
                 type="submit" 
-                onclick="validateForm();"
-                class="bg-orange-500 w-full text-gray-100 py-2 rounded mb-4 hover:bg-blue-700 transition-colors">
+                id="register"
+                class="bg-blue-500 w-full text-gray-100 py-2 rounded mb-4 hover:bg-blue-700 transition-colors">
                 Submit</button>
 
                 <button 
                 type="button"
-                onClick="location.href='/cureco/public'" 
-                class="bg-orange-500 w-full text-gray-100 py-2 rounded hover:bg-blue-700 transition-colors">
+                onClick="location.href='/projet/public'" 
+                class="bg-blue-500 w-full text-gray-100 py-2 rounded hover:bg-blue-700 transition-colors">
                 Back</button>
 
             
@@ -89,184 +85,180 @@ window.onload = function (){
 
 class FormValidation {
 
-formValues = {
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-}
+                formValues = {
+                    email: "",
+                    password: "",
+                    firstName: "",
+                    lastName: "",
+                }
 
-formInput = {
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-}
+                formInput = {
+                    email: "",
+                    password: "",
+                    firstName: "",
+                    lastName: "",
+                }
 
-errorValues = {
-    emailErr: "",
-    passwordErr: "",
-    firstNameErr: "",
-    lastNameErr: "",
-}
-
-
-
-getInputs() {
-    this.formInput.email = document.getElementById('email')
-    this.formInput.password = document.getElementById('password')
-    this.formInput.firstName = document.getElementById('firstname')
-    this.formInput.lastName = document.getElementById('lastname')
-}
-
-getInputsValue() {
-    this.formValues.email = document.getElementById('email').value.trim()
-    this.formValues.password = document.getElementById('password').value.trim()
-    this.formValues.firstName = document.getElementById('firstname').value.trim()
-    this.formValues.lastName = document.getElementById('lastname').value.trim()
-}
-
-validateEmail() {
-
-    let success = false;
-    //abc@gmail.co.in
-    const regExp = /^([a-zA-Z0-9-_\.]+)@([a-zA-Z0-9]+)\.([a-zA-Z]{2,10})(\.[a-zA-Z]{2,8})?$/
-    if (this.formValues.email === "") {
-
-        this.errorValues.emailErr = "Please Enter Valid Email"
-        this.showErrorMsg(2, this.errorValues.emailErr)
-
-    } else if (!(regExp.test(this.formValues.email))) {
-
-        this.errorValues.emailErr = "Invalid Email"
-        this.showErrorMsg(2, this.errorValues.emailErr)
-
-    } else {
-
-        this.errorValues.emailErr = "OK"
-        this.showErrorMsg(2, this.errorValues.emailErr)
-
-        success = true;
-
-    }
+                errorValues = {
+                    emailErr: "",
+                    passwordErr: "",
+                    firstNameErr: "",
+                    lastNameErr: "",
+                }
 
 
-    return success;
 
-    
-}
+                getInputs() {
+                    this.formInput.email = document.getElementById('email')
+                    this.formInput.password = document.getElementById('password')
+                    this.formInput.firstName = document.getElementById('firstname')
+                    this.formInput.lastName = document.getElementById('lastname')
+                }
 
-validatePassword() {
+                getInputsValue() {
+                    this.formValues.email = document.getElementById('email').value.trim()
+                    this.formValues.password = document.getElementById('password').value.trim()
+                    this.formValues.firstName = document.getElementById('firstname').value.trim()
+                    this.formValues.lastName = document.getElementById('lastname').value.trim()
+                }
 
-    let success = false;
+                validateEmail() {
 
-    if (this.formValues.password === "") {
+                    let success = false;
+                    
+                    const regExp = /^([a-zA-Z0-9-_\.]+)@([a-zA-Z0-9]+)\.([a-zA-Z]{2,10})(\.[a-zA-Z]{2,8})?$/
+                    if (this.formValues.email === "") {
 
-        this.errorValues.passwordErr = "* Please Provide a Password"
-        this.showErrorMsg(3, this.errorValues.passwordErr)
+                        this.errorValues.emailErr = "Email ne peut pas etre vide"
+                        this.showErrorMsg(2, this.errorValues.emailErr)
 
-    } else if (this.formValues.password.length <= 4) {
+                    } else if (!(regExp.test(this.formValues.email))) {
 
-        this.errorValues.passwordErr = "* Password must be atleast 5 Characters"
-        this.showErrorMsg(3, this.errorValues.passwordErr)
+                        this.errorValues.emailErr = "Inserez un email valide"
+                        this.showErrorMsg(2, this.errorValues.emailErr)
 
-    } else if (this.formValues.password.length > 10) {
+                    } else {
 
-        this.errorValues.passwordErr = "* Password should not exceeds 10 Characters"
-        this.showErrorMsg(3, this.errorValues.passwordErr)
+                        this.errorValues.emailErr = "OK"
+                        this.showErrorMsg(2, this.errorValues.emailErr)
 
-    } else {
+                        success = true;
 
-        this.errorValues.passwordErr = "OK"
-        
-        this.showErrorMsg(3, this.errorValues.passwordErr)
-
-        success = true;
-    }
-
-    return success;
-}
-
-
-validateFirstName() {
-
-    let success = false;
-
-    if (this.formValues.firstName === "") {
-
-        this.errorValues.firstNameErr = "FirstName!!"
-        this.showErrorMsg(0, this.errorValues.firstNameErr)
-
-    }else if (this.formValues.firstName.length <= 4) {
-
-        this.errorValues.firstNameErr = "FirstName>=4"
-        this.showErrorMsg(0, this.errorValues.firstNameErr)
-
-    } else if (this.formValues.firstName.length > 10) {
-
-        this.errorValues.firstNameErr = "FirstName<=10"
-        this.showErrorMsg(0, this.errorValues.firstNameErr)
-
-    } else {
-
-        this.errorValues.firstNameErr = "OK"
-
-        this.showErrorMsg(0, this.errorValues.firstNameErr)
+                    }
 
 
-        success = true;
+                    return success;
 
-        
-    }
+                    
+                }
 
-    return success;
+                validatePassword() {
 
-}
+                    let success = false;
 
-validateLastName() {
+                    if (this.formValues.password === "") {
 
-    let success = false;
+                        this.errorValues.passwordErr = "Password ne peut pas etre vide"
+                        this.showErrorMsg(3, this.errorValues.passwordErr)
 
-    if (this.formValues.lastName === "") {
+                    } else if (this.formValues.password.length <= 4) {
 
-        this.errorValues.lastNameErr = "LastName!!"
-        this.showErrorMsg(1, this.errorValues.lastNameErr)
+                        this.errorValues.passwordErr = "Mot de passe faible"
+                        this.showErrorMsg(3, this.errorValues.passwordErr)
 
-    }else if (this.formValues.lastName.length <= 4) {
+                    } else if (this.formValues.password.length > 10) {
 
-        this.errorValues.lastNameErr = "LastName>=5"
-        this.showErrorMsg(1, this.errorValues.lastNameErr)
+                        this.errorValues.passwordErr = "Mot de passe très longue"
+                        this.showErrorMsg(3, this.errorValues.passwordErr)
 
-    } else if (this.formValues.lastName.length > 10) {
+                    } else {
 
-        this.errorValues.lastNameErr = "LastName<=10"
-        this.showErrorMsg(1, this.errorValues.lastNameErr)
+                        this.errorValues.passwordErr = "OK"
+                        
+                        this.showErrorMsg(3, this.errorValues.passwordErr)
 
-    } else {
+                        success = true;
+                    }
 
-        this.errorValues.lastNameErr = "OK"
-        this.showErrorMsg(1, this.errorValues.lastNameErr)
-        
-        success = true;
-    }
-
-    return success;
-
-}
+                    return success;
+                }
 
 
-showErrorMsg(index, msg) {
-    const label = document.getElementsByTagName('label')[index]
-    label.textContent = msg
-    // if(msg=="OK"){
-    //     label.classList.add('hidden');
-    // }
-}
+                validateFirstName() {
 
-showSuccessMsg(index) {
-    const label = document.getElementsByTagName('label')[index]
-    label.textContent = "OK"
-}
+                    let success = false;
+
+                    if (this.formValues.firstName === "") {
+
+                        this.errorValues.firstNameErr = "Inserez un prenom"
+                        this.showErrorMsg(0, this.errorValues.firstNameErr)
+
+                    }else if (this.formValues.firstName.length <= 4) {
+
+                        this.errorValues.firstNameErr = "Prenom!!"
+                        this.showErrorMsg(0, this.errorValues.firstNameErr)
+
+                    } else if (this.formValues.firstName.length > 10) {
+
+                        this.errorValues.firstNameErr = "Oh trop de caracteres!!"
+                        this.showErrorMsg(0, this.errorValues.firstNameErr)
+
+                    } else {
+
+                        this.errorValues.firstNameErr = "OK"
+
+                        this.showErrorMsg(0, this.errorValues.firstNameErr)
+
+
+                        success = true;
+
+                        
+                    }
+
+                        return success;
+
+                    }
+
+                    validateLastName() {
+
+                        let success = false;
+
+                        if (this.formValues.lastName === "") {
+
+                            this.errorValues.lastNameErr = "Inserez un nom"
+                            this.showErrorMsg(1, this.errorValues.lastNameErr)
+
+                        }else if (this.formValues.lastName.length <= 4) {
+
+                            this.errorValues.lastNameErr = "Nom"
+                            this.showErrorMsg(1, this.errorValues.lastNameErr)
+
+                        } else if (this.formValues.lastName.length > 10) {
+
+                            this.errorValues.lastNameErr = "Oh trop de caracteres!!"
+                            this.showErrorMsg(1, this.errorValues.lastNameErr)
+
+                        } else {
+
+                            this.errorValues.lastNameErr = "OK"
+                            this.showErrorMsg(1, this.errorValues.lastNameErr)
+                            
+                            success = true;
+                        }
+
+                        return success;
+
+                    }
+
+                    showErrorMsg(index, msg) {
+                        const label = document.getElementsByTagName('label')[index]
+                        label.textContent = msg
+                    }
+
+                    showSuccessMsg(index) {
+                        const label = document.getElementsByTagName('label')[index]
+                        label.textContent = "OK"
+                    }
 
 }
 
@@ -298,33 +290,28 @@ $(ValidateUserInputs.formInput.lastName).on("change keyup paste", function(){
     success_lastName = ValidateUserInputs.validateLastName();
 })
 
-function validateForm(){
+$('#register').click(function (e) { 
 
-event.preventDefault()
-
-
-
-ValidateUserInputs.getInputsValue()
-
-success_firstName = ValidateUserInputs.validateFirstName()
-
-success_lastName = ValidateUserInputs.validateLastName()
-success_email = ValidateUserInputs.validateEmail()
-success_password = ValidateUserInputs.validatePassword()
+        e.preventDefault()
 
 
 
+        ValidateUserInputs.getInputsValue()
+
+        success_firstName = ValidateUserInputs.validateFirstName()
+
+        success_lastName = ValidateUserInputs.validateLastName()
+        success_email = ValidateUserInputs.validateEmail()
+        success_password = ValidateUserInputs.validatePassword()
+
+        if(success_email && success_password && success_firstName && success_lastName){
 
 
-if(success_email && success_password && success_firstName && success_lastName){
+            $("form").submit();
 
+        }
 
-    $("form").submit();
-
-}
-
-}
-
+});
 
 }
     </script>

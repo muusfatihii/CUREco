@@ -49,9 +49,14 @@ public function checkAdmin(array $input)
 
         $_SESSION['email'] = $input['email'];
 
+        return true;
+
+    }else{
+
+        return false;
     }
 
-    return $row;
+    
 
    }
 

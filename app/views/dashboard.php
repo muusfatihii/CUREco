@@ -19,45 +19,59 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <script src="/projet/public/js/picverification.js"></script>
+
     <title>Cure CO--DashBoard</title>
 
 </head>
 
 <body style="position: relative;" id="up">
 
-<nav class="navbar navbar-expand-md bg-dark bg-transparent navbar-dark" id="mynav">
-    <div class="container">
-        <a class="navbar-brand text-uppercase fw-bold" href="/cureco/public/">
-            <span class="text-dark text-xl">Cure</span>
-            <span class="bg-dark px-1 text-xs py-1 rounded-3 text-light">.Co</span>
-        </a>
+<header class=" w-full">
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <ul class="collapse navbar-collapse justify-content-end fw-bold" id="navbarNav" style="list-style: none;">
-            <li class="nav-item active">
-                <a class="nav-link text-dark" href="#">Home</a>
-            </li>
-            <?php if(isset($_SESSION['admin']) && $_SESSION['admin']==1):?>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="#">Dashboard</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="/cureco/public/page/signup">Sign Up</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="/cureco/public/auth/logout">Log out</a>
-            </li>
-            <?php else:?>
-            <li class="nav-item">
-                <a class="nav-link text-dark" href="/cureco/public/page/signin">Sign In</a>
-            </li>
-            <?php endif;?>
-        </ul>
-  </div>
+<nav class="flex top-0 justify-between p-2 z-30 w-full bg-black px-4 transition easy-linear">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="bar w-8 h-8 text-white my-auto md:hidden cursor-pointer">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <p class="text-white font-bold text- my-auto">Cure<span class="text-sm text-blue-600">.co</span></p>
+            <ul class="navUl flex justify-between text-lg font-bold text-white max-md:flex-col max-md:absolute max-md:w-full max-md:left-0 max-md:bg-black max-md:hidden relative">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="navx w-8 h-8 text-white my-auto md:hidden cursor-pointer absolute">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+    
+                <li class="border-b-white mx-4 border-b  hover:border-b-2 w-fit max-md:mx-auto max-md:my-2"><a href="/projet/public/">Home</a></li>
+                
+                <?php if(isset($_SESSION['admin']) && $_SESSION['admin']==1): ?>
+                <li class="border-b-white mx-4 border-b  hover:border-b-2 w-fit max-md:mx-auto max-md:my-2"><a href="#">Dashboard</a></li>
+                <li class="border-b-white mx-4 border-b  hover:border-b-2 w-fit max-md:mx-auto max-md:my-2"><a href="/projet/public/page/signup">Sign Up</a></li>
+                
+                <a href="/projet/public/auth/logout" class="border border-white flex px-4 py-1 text-lg rounded-md font-medium text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 my-auto">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                </svg>
+                <span class="max-sm:hidden">Logout</span>
+               </a>
+                <?php else:?>
+                    <a href="/projet/public/page/signin" class="border border-white flex px-4 py-1 text-lg rounded-md font-medium text-white hover:text-black hover:bg-white transition easy-linear"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 my-auto">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+              </svg>
+              <span class="max-sm:hidden">Login</span>
+               </a>
+               <?php endif;?>
+            </ul>
 </nav>
+</header>
+
+<script>
+    var bar = document.querySelector('.bar');
+    var x=document.querySelector('.navx');
+    var nav = document.querySelector('.navUl');
+    bar.addEventListener('click',e=>{
+        nav.classList.remove('max-md:hidden');
+    })
+    x.addEventListener('click',e=>{
+        nav.classList.add('max-md:hidden');
+    });
+</script>
 
 
 
@@ -98,7 +112,9 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
             id="picProduct1" 
             type="file" 
             accept="image/png, image/gif, image/jpeg"
-            name="picProduct1">
+            name="picProduct1"
+            required
+            >
 
             <label class="text-blue-400">Quantité :</label>
 
@@ -245,169 +261,82 @@ function removeInputs(){
 
 }
 
-
-
-
-
-
-// function getProductsInfos(){
-
-// let k = 1;
-// let nbrChildren = $("#productsContainer").children().length;
-
-// var products = [];
-// var pics = [];
-
-// while(k <= nbrChildren){
-//     product = [];
-//     product.push($("#productName"+k).val());
-//     product.push($("#priceProduct"+k).val());
-//     product.push($("#qtyProduct"+k).val());
-
-//     pic = new FormData();
-//     pic.append('file',$("#picProduct"+k)[0].files[0]);
-//     pics.push(pic);
-
-//     products.push(product);
-
-//     k++;
-
-// }
-
-// result = [];
-
-// result.push(products);
-// result.push(pics);
-
-// return result;
-
-
-// }
-
-
-//     form = $("form#productsToAdd")[0];
-
-//     form.submit(function(e){
-    
+// $('form#productsToAdd').submit( function( e ) {
 //     e.preventDefault();
+//     form_data= new FormData($(this)[0]);
+//     form_data.append("limit",limit*page);
+//     form_data.append("priceOrder",priceOrder);
+//     form_data.append("addDateOrder",priceOrder);
 
-//     var formData = new FormData(form);
-
+//     var imgFile = $("#picProduct1")[0]; 
+//     form_data.append("picProduct1", imgFile.files[0]);
 //     $.ajax({
-//             url: '/cureco/public/product/add',
-//             method: "POST",
-//             data: {
-//                     data:formData,
-//                 },
-//             contentType: false,
-//             cache: false,
-//             processData:false,
-//             success:function(data){
+//         url: '/projet/public/product/add',
+//         type: 'POST',
+//         data: form_data,
+//         contentType: false,
+//         cache: false,
+//         processData:false,
+//         success: function(data){
 
-//                 console.log(data);
+//                     products=JSON.parse(data);
+
+//                     if(products.length<(page*limit)){
+
+//                         $("#loadMoreBtn").hide();
+//                         $("#noMoreProducts").show();
+
+//                     }else{
+
+//                         $("#loadMoreBtn").show();
+//                         $("#noMoreProducts").hide();
+
+//                     }
+
+//                     output = ``;
+
+//                     products.forEach(product=>{
+
+//                         output += `<tr>`;
+
+//                         output += `<th scope="row"><img src="/projet/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
+//                         output += `<td>`+product.name+`</td>`;
+//                         output += `<td>`+product.quantity+`</td>`;
+//                         output += `<td>`+product.addDate+`</td>`;
+//                         output += `<td>`+product.price+`</td>`;
+//                         output += `<td><i id="`+product.id+`" class="modifyProduct bi bi-gear"></i></td>`;
+//                         output += `<td><i id="`+product.id+`" class="deleteProduct bi bi-x"></i></td>`;
 
 
-//                 // if(data!=1){
-
-//                 // products=JSON.parse(data);
-
-//                 //     output = ``;
-
-//                 //     products.forEach(product=>{
-
-//                 //         output += `<tr>`;
-
-//                 //         output += `<th scope="row"><img src="uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
-//                 //         output += `<td>`+product.name+`</td>`;
-//                 //         output += `<td>`+product.quantity+`</td>`;
-//                 //         output += `<td>`+product.addDate+`</td>`;
-//                 //         output += `<td>`+product.price+`</td>`;
-//                 //         output += `<td><i id="`+product.id+`" class="modifyProduct bi bi-gear"></i></td>`;
-//                 //         output += `<td><i id="`+product.id+`" class="deleteProduct bi bi-x"></i></td>`;
-
-//                 //         output += `</tr>`;
+//                         output += `</tr>`;
 
                         
-//                 //     });
+//                     });
 
 
-//                 //     $('#products').html(output);
+//                     $('#products').html(output);
 
-//                 // }else{
+//                     $("#addProductSection").hide();
 
-//                 //     console.log("1");
+//                     removeInputs();
 
+//                     $("#addingProductOpt").find('#adddisplayed').hide();
+//                     $("#addingProductOpt").find('#addnotdisplayed').show();
+//                     hidden=1;
 
-//                 // }
+//                     updateStats();
 
-//             },
+                    
+
             
-//         });
-
-// })
-
-
-
-// $('form#productsToAdd').on('submit', function(e) {
-
-//     e.preventDefault();
-
-
-//     var form = $('form#productsToAdd')[0];
-//     var formData = new FormData(form);
-
-//     // for (var p of formData) {
-//     //   console.log(p);
-//     // }
-
-
-//     $.ajax({
-//             url: '/cureco/public/product/add',
-//             method: "POST",
-//             data: {
-//                     data: formData,
-//                 },
-//             contentType: false,
-//             cache: false,
-//             processData:false,
-//             success:function(data){
-
-//                 // for (var p of data) {
-//                 //   console.log(p);
-//                 // }
-
-//                 alert(data);
-
-//             }
+//         }
 //     });
+    
+// });
 
-// })
+function addProduct(){
 
-
-
-
-
-// $(document).ready(function(){
-//     var form=$("form#productsToAdd");
-//     $("#addProductsbmt").click(function(e){
-//         e.preventDefault();
-//     $.ajax({
-//             type:"POST",
-//             url: '/cureco/public/product/add',
-//             data: $("form#productsToAdd input").serialize(),
-//             success: function(response){
-//                 console.log(response);  
-//             }
-//         });
-//     });
-//     });
-
-
-
-
-$('form#productsToAdd').submit( function( e ) {
-    e.preventDefault();
-    form_data= new FormData($(this)[0]);
+    form_data= new FormData($('form#productsToAdd')[0]);
     form_data.append("limit",limit*page);
     form_data.append("priceOrder",priceOrder);
     form_data.append("addDateOrder",priceOrder);
@@ -415,7 +344,7 @@ $('form#productsToAdd').submit( function( e ) {
     var imgFile = $("#picProduct1")[0]; 
     form_data.append("picProduct1", imgFile.files[0]);
     $.ajax({
-        url: '/cureco/public/product/add',
+        url: '/projet/public/product/add',
         type: 'POST',
         data: form_data,
         contentType: false,
@@ -443,7 +372,7 @@ $('form#productsToAdd').submit( function( e ) {
 
                         output += `<tr>`;
 
-                        output += `<th scope="row"><img src="/cureco/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
+                        output += `<th scope="row"><img src="/projet/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
                         output += `<td>`+product.name+`</td>`;
                         output += `<td>`+product.quantity+`</td>`;
                         output += `<td>`+product.addDate+`</td>`;
@@ -475,84 +404,10 @@ $('form#productsToAdd').submit( function( e ) {
             
         }
     });
-    
-});
-
-// var form = $('form#productsToAdd')[0];
-// var formData = new FormData(this);
-
-//  jQuery.each(jQuery('#photo-filename')[0].files, function(i, file) {
-//     formData.append('file-'+i, file);
-// });
-
-// formData.append('picProduct', $('form#productsToAdd')[0].files[0]);
-
-// $.ajax({
-//   url: "/cureco/public/product/add", 
-//   data: formData,
-//   type: "POST", 
-//   contentType: false,       
-//   cache: false,             
-//   processData: false
-// });
-
-//     console.log(formData);
-// });
 
 
+}
 
-// function addProducts(page,limit,priceOrder,addDateOrder,formData){
-
-//         $.ajax({
-//             url: '/cureco/public/product/add',
-//             method: "POST",
-//             data: {
-//                     data:formData,
-//                     limit: limit*page,
-//                     priceOrder: priceOrder,
-//                     addDateOrder: addDateOrder
-
-//                 },
-//             success:function(data){
-
-//                 if(data!=1){
-
-//                 products=JSON.parse(data);
-
-//                     output = ``;
-
-//                     products.forEach(product=>{
-
-//                         output += `<tr>`;
-
-//                         output += `<th scope="row"><img src="uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
-//                         output += `<td>`+product.name+`</td>`;
-//                         output += `<td>`+product.quantity+`</td>`;
-//                         output += `<td>`+product.addDate+`</td>`;
-//                         output += `<td>`+product.price+`</td>`;
-//                         output += `<td><i id="`+product.id+`" class="modifyProduct bi bi-gear"></i></td>`;
-//                         output += `<td><i id="`+product.id+`" class="deleteProduct bi bi-x"></i></td>`;
-
-//                         output += `</tr>`;
-
-                        
-//                     });
-
-
-//                     $('#products').html(output);
-
-//                 }else{
-
-//                     console.log("1");
-
-
-//                 }
-
-//             },
-            
-//         });
-
-// }
 </script>
 
 <!-- end add Products section -->
@@ -570,28 +425,65 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
 
 <section id="statistics">
 
-
-<div class="row">
-        
-        <div class="card col-xs-12 col-sm-8 col-md-5 col-lg-4 item">
-            <img src="/cureco/public/img/maxPrice.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Prix minimal : <strong id="minPrice">0</strong></h5>
-            </div>
-        </div>
-        <div class="card col-xs-12 col-sm-8 col-md-5 col-lg-4 item">
-            <img src="/cureco/public/img/maxPrice.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Prix maximal : <strong id="maxPrice">0</strong></h5>
-            </div>
-        </div>
-        <div class="card col-xs-12 col-sm-8 col-md-5 col-lg-4 item">
-            <img src="/cureco/public/img/totalProducts.png" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Prix maximal : <strong id="totalProducts">0</strong></h5>
-            </div>
-        </div>
-        
+<div class="col-span-12 mt-8 mb-8 mx-auto">
+                                <div class="grid grid-cols-6 gap-10 mt-5">
+                                    <a class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white"
+                                        href="#">
+                                        <div class="p-5">
+                                            <div class="flex justify-between">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-400"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                                </svg>
+                                            </div>
+                                            <div class="ml-2 w-full flex-1">
+                                                <div>
+                                                    <div class="mt-3 text-3xl font-bold leading-8">Total Produits : <strong id="totalProducts">0</strong></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white"
+                                        href="#">
+                                        <div class="p-5">
+                                            <div class="flex justify-between">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-yellow-400"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                                </svg>
+                                            </div>
+                                            <div class="ml-2 w-full flex-1">
+                                                <div>
+                                                    <div class="mt-3 text-3xl font-bold leading-8">Prix maximal : <strong id="maxPrice">0</strong></div>                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a class="transform  hover:scale-105 transition duration-300 shadow-xl rounded-lg col-span-12 sm:col-span-6 xl:col-span-3 intro-y bg-white"
+                                        href="#">
+                                        <div class="p-5">
+                                            <div class="flex justify-between">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-pink-600"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                                                </svg>
+                                            </div>
+                                            <div class="ml-2 w-full flex-1">
+                                                <div>
+                                                    <div class="mt-3 text-3xl font-bold leading-8">Prix minimal : <strong id="minPrice">0</strong></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
 </div>
 
 </section>
@@ -641,7 +533,7 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
     function updateStats(){
 
     $.ajax({
-    url: '/cureco/public/product/stats',
+    url: '/projet/public/product/stats',
     method: "GET",
     success:function(data){
 
@@ -678,31 +570,32 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
 
 <!-- Filter section -->
 
-<div style="margin: auto;margin-top: 60px;">
+<!-- <div style="margin: auto;margin-top: 60px;"> -->
       <select 
       id="priceOrdered" 
-      style="outline-color: blue;border-color: blue;border-width:1px;text-align:center" class="rounded-xl"
+      style="outline-color: blue;border-color: blue;border-width:1px;text-align:center;" class="rounded-xl"
       required>
-              <option value="none">------</option>
-              <option value="up">Prix--Ascendant</option>
-              <option value="down">Prix--Descendant</option>
+              <option value="none">Prix--none</option>
+              <option value="up">Prix--Up</option>
+              <option value="down">Prix--Down</option>
       </select>
 
       <select 
       id="addDateOrdered" 
       style="outline-color: blue;border-color: blue;border-width:1px;text-align:center;" class="rounded-xl"
       required>
-              <option value="none">------</option>
-              <option value="up">Date d'ajout--Ascendant</option>
-              <option value="down">Date d'ajout--Descendant</option>
+              <option value="none">Date d'ajout--None</option>
+              <option value="up">Date d'ajout--Up</option>
+              <option value="down">Date d'ajout--Down</option>
       </select>
 
       <input 
       id="searchInput"
-      style="outline-color: blue;border-color: blue;border-width:1px;" class="rounded-xl"
+      placeholder="Nom de produit"
+      style="outline-color: blue;border-color: blue;border-width:1px;" class="px-2 rounded-xl"
       >
       </input>
-</div>
+<!-- </div> -->
 
 <table class="table">
   <thead class="thead-dark">
@@ -723,7 +616,7 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
         foreach($products as $product){
     ?>
     <tr>
-        <th scope="row"><img src="/cureco/public/uploads/<?=$product->pic?>" style="height:32px;width:32px;" alt=""></th>
+        <th scope="row"><img src="/projet/public/uploads/<?=$product->pic?>" style="height:32px;width:32px;" alt=""></th>
         <td><?=$product->name?></td>
         <td
         <?php
@@ -754,25 +647,6 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
 <div class="flex items-center justify-center">
        <button id="noMoreProducts" type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">Y'a plus de Produits</button>
 </div>
-
-<!-- <?php if(count($products)>0):?>
-<div class="flex items-center justify-center">
-   <button id="loadMoreBtn" type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">Plus de Produits</button>
-</div>
-<div class="flex items-center justify-center">
-   <button type="button" class="hidden text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">Y'a plus de Produits</button>
-</div>
-<?php else:?>
-    <div class="flex items-center justify-center">
-       <button id="loadMoreBtn" type="button" class="hidden text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">Plus de Produits</button>
-    </div>
-    <div class="flex items-center justify-center">
-       <button id="noMoreProducts" type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 ">Y'a plus de Produits</button>
-    </div>
-
-<?php endif;?> -->
-
-
 
 <script>
 
@@ -811,7 +685,6 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
 
 
     $("#priceOrdered").change(function(){
-        $("#loadMoreBtn").show();
 
         page=1;
         priceOrder = $("#priceOrdered").val();
@@ -823,7 +696,6 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
     });
 
     $("#addDateOrdered").change(function(){
-        $("#loadMoreBtn").show();
         page=1;
         addDateOrder = $("#addDateOrdered").val();
 
@@ -843,7 +715,6 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
     });
 
     $("#searchInput").keyup(function(){
-        $("#loadMoreBtn").show();
 
         page = 1;
         keyword = $("#searchInput").val()
@@ -859,7 +730,7 @@ justify-content:space-between;align-items:center;padding-left:40px;padding-right
 function deleteProduct(idProduct){
 
         $.ajax({
-            url: '/cureco/public/product/delete/'+idProduct,
+            url: '/projet/public/product/delete/'+idProduct,
             method: "POST",
             data: {
                     limit: limit*page,
@@ -887,7 +758,7 @@ function deleteProduct(idProduct){
 
                         output += `<tr>`;
 
-                        output += `<th scope="row"><img src="/cureco/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
+                        output += `<th scope="row"><img src="/projet/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
                         output += `<td>`+product.name+`</td>`;
                         output += `<td>`+product.quantity+`</td>`;
                         output += `<td>`+product.addDate+`</td>`;
@@ -918,7 +789,7 @@ function loadMoreProducts(limit,page,priceOrder,addDateOrder){
 
 
             $.ajax({
-                url: '/cureco/public/product/show',
+                url: '/projet/public/product/show',
                 method: "POST",
                 data: {
                         limit: limit,
@@ -936,6 +807,11 @@ function loadMoreProducts(limit,page,priceOrder,addDateOrder){
                         $("#loadMoreBtn").hide();
                         $("#noMoreProducts").show();
 
+                    }else{
+
+                        $("#loadMoreBtn").show();
+                        $("#noMoreProducts").hide();
+
                     }
                     
 
@@ -945,7 +821,7 @@ function loadMoreProducts(limit,page,priceOrder,addDateOrder){
 
                             output += `<tr>`;
 
-                            output += `<th scope="row"><img src="/cureco/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
+                            output += `<th scope="row"><img src="/projet/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
                             output += `<td>`+product.name+`</td>`;
                             output += `<td>`+product.quantity+`</td>`;
                             output += `<td>`+product.addDate+`</td>`;
@@ -975,7 +851,7 @@ function searchProduct(page,keyword){
     $("#noMoreProducts").hide();
 
 $.ajax({
-    url: '/cureco/public/product/search',
+    url: '/projet/public/product/search',
     method: "POST",
     data: {
             limit: limit,
@@ -1000,7 +876,7 @@ $.ajax({
 
                 output += `<tr>`;
 
-                output += `<th scope="row"><img src="/cureco/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
+                output += `<th scope="row"><img src="/projet/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
                 output += `<td>`+product.name+`</td>`;
                 output += `<td>`+product.quantity+`</td>`;
                 output += `<td>`+product.addDate+`</td>`;
@@ -1025,8 +901,11 @@ $.ajax({
 
 function updateProducts(){
 
+    $("#loadMoreBtn").hide();
+    $("#noMoreProducts").hide();
+
 $.ajax({
-    url: '/cureco/public/product/show',
+    url: '/projet/public/product/show',
     method: "POST",
     data: {
             limit: limit*page,
@@ -1058,7 +937,7 @@ $.ajax({
 
                 output += `<tr>`;
 
-                output += `<th scope="row"><img src="/cureco/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
+                output += `<th scope="row"><img src="/projet/public/uploads/`+product.pic+`" style="height:32px;width:32px;" alt=""></th>`;
                 output += `<td>`+product.name+`</td>`;
                 output += `<td>`+product.quantity+`</td>`;
                 output += `<td>`+product.addDate+`</td>`;
@@ -1094,7 +973,7 @@ $.ajax({
 
     <div class="flex items-center justify-center h-screen w-screen bg-blue-300 opacity-[.95]" id="modifyProductForm" style="display:none;position:absolute;top:0;left:0;">
 
-        <div class="bg-white w-96 p-6 rounded shadow-sm">
+        <form id="modifyform" class="bg-white w-96 p-6 rounded shadow-sm">
             
             <span onclick="document.getElementById('modifyProductForm').style.display='none'"
             style="display:block;cursor:pointer;" 
@@ -1102,7 +981,6 @@ $.ajax({
 
             <input
             style="display:none;"
-            disabled=true
             type="text" 
             class="w-full py-2 bg-gray-100 text-gray-500 px-1 outline-none mb-4 rounded" 
             id="idProduct" 
@@ -1125,6 +1003,7 @@ $.ajax({
             class="w-full py-2 bg-gray-100 text-gray-500 px-1 outline-none mb-4 rounded" 
             id="picProduct" 
             type="file" 
+            accept="image/png, image/gif, image/jpeg"
             name="picProduct">
 
             <label class="text-blue-400">Quantité :</label>
@@ -1159,12 +1038,12 @@ $.ajax({
             >
 
             <button
+            type="submit"
             id="modifyProductBtn"
-            onclick="modifyProduct();"
             class="bg-blue-500 w-full text-gray-100 py-2 mb-4 rounded hover:bg-blue-700 transition-colors" 
             >Modifier</button>
 
-        </div>
+      </form>
     </div>
 
 <script>
@@ -1172,7 +1051,7 @@ $.ajax({
 function getDescription(idProduct){
 
         $.ajax({
-            url: '/cureco/public/product/description',
+            url: '/projet/public/product/description',
             method: "POST",
             data: {
                 idProduct: idProduct,
@@ -1194,45 +1073,39 @@ function getDescription(idProduct){
 }
 
 
+$('form#modifyform').submit( function( e ) {
 
+    e.preventDefault();
 
-function modifyProduct(){
+    form_data= new FormData($(this)[0]);
 
-        idProduct = $("#modifyProductForm").find('#idProduct').val();
-        productName = $("#modifyProductForm").find('#productName').val();
-        priceProduct = $("#modifyProductForm").find('#priceProduct').val();
-        qtyProduct = $("#modifyProductForm").find('#qtyProduct').val();
+    var imgFil = $("#picProduct")[0]; 
+    form_data.append("picProduct", imgFil.files[0]);
 
+    $.ajax({
+        url: '/projet/public/product/modify',
+        type: 'POST',
+        data: form_data,
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(data){
 
+            if(data!=1){
 
-        $.ajax({
-            url: '/cureco/public/product/modify',
-            method: "POST",
-            data: {
-                idProduct: idProduct,
-                productName: productName,
-                priceProduct: priceProduct,
-                qtyProduct: qtyProduct
-                },
-            success:function(data){
+                console.log("error");
 
-                if(data!=1){
+            }else{
 
-                    console.log("error");
+                $("#modifyProductForm").hide();
+                updateProducts();
 
-                }else{
+            }
 
-                    $("#modifyProductForm").hide();
-
-                    updateProducts();
-
-
-                }
-
-            },
-            
-        });
-}
+        }
+    });
+    
+});
 
 
 </script>
